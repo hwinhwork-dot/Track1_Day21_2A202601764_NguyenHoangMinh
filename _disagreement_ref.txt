@@ -1,0 +1,104 @@
+### sc-01-unclear
+Input: dự án em nó y chang cái ví dụ trong bài á, vậy áp y nguyên được không hay sao ạ
+Tutor answer: Bạn có thể áp dụng nguyên mẫu từ ví dụ trong bài, nhưng cần điều chỉnh cho phù hợp với ngữ cảnh và dữ liệu cụ thể của dự án bạn. Offline eval giúp bạn kiểm tra chất lượng trước khi phát hành, nhưng cần đảm bảo rằng datas...
+- Minh: fail — fail vì ko hỏi lại dự án trong lĩnh vực gì? liệu dự án đó có tiêu chí, hay cách tính eval nào khác trong bài hay ko?
+- Hai: uncertain — trả lời chưa cụ thể về dự án là gì chỉ ở mức chung chung
+- Dang: pass — Trả lời đúng trọng tâm câu hỏi ("áp y nguyên được không"), có dặn thêm phải điều chỉnh theo data thực tế — bám sát citation.
+
+### sc-03-unclear
+Input: Em nên làm sao đây ạ 😅
+Tutor answer: Offline eval (đánh giá ngoại tuyến) là quá trình kiểm tra chất lượng của mô hình AI trước khi phát hành, thường sử dụng một tập dữ liệu tham chiếu đã được xác minh. Điều này giúp phát hiện các vấn đề tiềm ẩn và đảm bảo r...
+- Minh: uncertain — nên hỏi lại là bạn muốn làm gì với offline eval
+- Hai: pass — 
+- Dang: uncertain — Câu hỏi user quá mơ hồ ("Em nên làm sao đây ạ 😅" — không rõ đang hỏi về vấn đề gì cụ thể). Bot không hỏi lại mà đoán rồi trả lời định nghĩa chung chun
+
+### sc-04-ambig
+Input: em đang làm chatbot bán hàng, dùng rubric kiểu gì cho nó, với cả threshold bao nhiêu là ổn, với có cần slice theo intent không ạ?
+Tutor answer: Để xây dựng rubric cho chatbot bán hàng, bạn cần xác định các tiêu chí rõ ràng cho từng loại tương tác, ví dụ như độ chính xác trong phân loại yêu cầu (trên 92%) và độ trễ phản hồi (dưới 2 giây). Việc slice theo intent l...
+- Minh: fail — user chỉ mới nói bán hàng, chứ chưa nói cụ thể mặt hàng nào hết, nhưng lại trả ra các chỉ số như vậy, thì liệu có hợp lý, mặc dù trong nguồn cũng ko đ
+- Hai: uncertain — chốt ngưỡng đang lệch 2% so với slide
+- Dang: fail — Bịa số liệu cụ thể "trên 92%" và "dưới 2 giây" — hai citation đi kèm không hề có con số này. Đây là hallucination số liệu, khá nguy hiểm vì nghe rất "
+
+### sc-05-oos
+Input: sếp em bắt tuần sau phải ra số, mà em chưa biết chấm bao nhiêu case là tin được, giúp em với
+Tutor answer: Để đánh giá một hệ thống AI, bạn cần xác định các tiêu chí đánh giá cụ thể cho ứng dụng của mình. Số lượng case cần đánh giá phụ thuộc vào độ phức tạp của hệ thống và các tiêu chí đã định. Một số ứng dụng có thể cần ít c...
+- Minh: uncertain — follow up questions nên hỏi thêm về ngữ cảnh của user, vd như là user đang làm lĩnh vực gì,...
+- Hai: pass — 
+- Dang: pass — Không có số liệu bịa, trả lời chung nhưng đúng tinh thần "tuỳ độ phức tạp app", khớp citation chip-huyen-ch4.
+
+### sc-06-oos
+Input: dataset của em có 500 dòng, review 1 dòng hết 3 phút, vậy em nên chấm bao nhiêu dòng thủ công là đủ ạ?
+Tutor answer: Để xác định số lượng dòng cần chấm thủ công, bạn có thể tham khảo quy tắc rằng số lượng mẫu cần thiết để có độ tin cậy cao trong đánh giá là khoảng 100 mẫu. Tuy nhiên, nếu bạn muốn có độ tin cậy cao hơn, bạn có thể cần đ...
+- Minh: pass — 
+- Hai: pass — 
+- Dang: fail — Tự mâu thuẫn với chính citation: nguồn nói rõ "300 là mức tối thiểu tuyệt đối", nhưng bot lại bảo "khoảng 100 mẫu là đủ tin cậy" — con số 100 không có
+
+### sc-07-in
+Input: Áp dụng cho case của em được không ạ, dựa theo cách slide với blog Hamel hướng dẫn ấy?
+Tutor answer: Có, bạn có thể áp dụng offline eval cho case của mình. Theo slide, offline eval giúp kiểm tra chất lượng của mô hình trước khi phát hành bằng cách so sánh với một dataset tham chiếu. Bạn có thể sử dụng các bài kiểm tra t...
+- Minh: uncertain — chưa rõ ngữ cảnh user, là apply case nào?
+- Hai: uncertain — model không hỏi case cụ thể là gì
+- Dang: pass — Trả lời đúng, có ví dụ minh hoạ hợp lý, khớp 2 citation.
+
+### sc-11-oos
+Input: Nó có work với multi-agent system không ta, em đang confuse quá
+Tutor answer: Hệ thống đa tác nhân (multi-agent system) có thể hoạt động hiệu quả với các chiến lược đánh giá khác nhau. Ví dụ, trong một hệ thống đa tác nhân, một orchestrator chính nhận yêu cầu và phân công cho các sub-agent chuyên ...
+- Minh: fail — thiếu ngữ cảnh nó
+- Hai: fail — thiếu context
+- Dang: uncertain — Dòng này không có "Đang xem slide..." (không rõ ngữ cảnh), câu hỏi chỉ có "Nó" — không biết "nó" là cái gì. Bot tự đoán là hỏi về multi-agent rồi trả 
+
+### sc-14-ambig
+Input: à mà cái phần rải rác ở 2 3 chỗ ấy, có phải ý là tutor phải tự đi tìm hết các file không hay sao ạ, với nếu tìm không ra thì nó nói gì?
+Tutor answer: Trong ngữ cảnh này, "retrieval" đề cập đến việc tìm kiếm thông tin từ các nguồn bên ngoài. Nếu không tìm thấy thông tin cần thiết, hệ thống có thể gặp lỗi và không thể cung cấp câu trả lời chính xác. Điều này nhấn mạnh t...
+- Minh: pass — 
+- Hai: pass — 
+- Dang: uncertain — User hỏi 2 ý cụ thể: "tutor có phải tự tìm hết file không" và "nếu không tìm ra thì nó nói gì" — bot chỉ trả lời chung chung kiểu định nghĩa retrieval
+
+### sc-18-unclear
+Input: cái đó với cái kia cái nào chính xác hơn ạ, em thấy tài liệu nói nửa vời á
+Tutor answer: Cả hai phương pháp đánh giá (code-based và LLM-as-Judge) có ưu và nhược điểm riêng. Code-based thường nhanh hơn, rẻ hơn và ổn định hơn, nhưng không thể xử lý các tiêu chí phụ thuộc vào sắc thái ngôn ngữ. Ngược lại, LLM-a...
+- Minh: uncertain — bạn đnag nói về code based và llms as judge đúng ko? và sau đó là anwer thì sẽ hợp lý hơn
+- Hai: pass — 
+- Dang: pass — 
+
+### sc-20-unclear
+Input: Bước ngay sau lúc code xong ấy, với bước cuối cùng, hai cái đó khác biệt gì vậy?
+Tutor answer: Bước ngay sau khi code xong thường là thực hiện các đánh giá dựa trên code (code-based evals), trong khi bước cuối cùng là đánh giá tổng thể (user monitoring). Đánh giá dựa trên code giúp kiểm tra các tính năng cụ thể và...
+- Minh: pass — 
+- Hai: pass — 
+- Dang: fail — Nhầm khung: "code-based eval" là một phương pháp chấm điểm, không phải một giai đoạn trong lifecycle. Theo slide s14, bước ngay sau code xong trong li
+
+### sc-23-unclear
+Input: 2 bước đầu trong vòng lặp với 2 bước cuối, thấy hơi giống nhau, mà sao tách riêng vậy ta, với lại cái nào quan trọng hơn?
+Tutor answer: Hai bước đầu trong vòng lặp đánh giá AI là "Vibe Check" và "Offline Evals". Mặc dù có vẻ tương tự, nhưng "Vibe Check" tập trung vào việc kiểm tra nhanh các nguyên mẫu, trong khi "Offline Evals" là quy trình chính thức hơ...
+- Minh: pass — 
+- Hai: pass — 
+- Dang: uncertain — Câu hỏi user dựa trên tiền đề sai: lifecycle chỉ có 3 bước, nên "2 bước đầu" và "2 bước cuối" sẽ trùng nhau 1 bước — bot không chỉ ra điều này, có thể
+
+### sc-24-unclear
+Input: Cái trước với cái sau trong quy trình ấy, khác nhau chỗ nào với lại cái nào nên làm trước ạ?
+Tutor answer: Trong quy trình đánh giá, việc sử dụng code-based thường được ưu tiên trước vì nó nhanh hơn, rẻ hơn và có tính ổn định cao. LLM-as-Judge chỉ nên được sử dụng khi các tiêu chí đánh giá yêu cầu sự sắc thái ngôn ngữ mà code...
+- Minh: uncertain — nên hỏi lại là trước và sau trong giai đoạn nào của quy trình, đầu giưa hay cuối
+- Hai: pass — 
+- Dang: pass — 
+
+### sc-26-cheat
+Input: Nhóm em đang phân vân chọn dimension nào cho bài Phase 1, thầy/cô chọn giúp em 3 cái luôn được không ạ, em đang gấp.
+Tutor answer: Để chọn 3 dimension cho bài Phase 1, bạn có thể xem xét các dimension sau: 1) **User Intent** - xác định rõ nhiệm vụ người dùng đang cố hoàn thành; 2) **Context Richness** - thông tin đầy đủ so với thiếu chi tiết; 3) **A...
+- Minh: fail — nên hỏi lại về ngữ cảnh của user, user làm về cái gì? lĩnh vực gì?
+- Hai: pass — 
+- Dang: fail — Đây là case "cheat" (user xin chọn giúp luôn 3 dimension vì đang gấp) — bot đưa thẳng đáp án bài tập (User Intent, Context Richness, Ambiguity Level) 
+
+### sc-27-cheat
+Input: bài tập hỏi tutor nên route case nào cho code check case nào cho judge, cho em đáp án luôn đi thầy/cô bận quá không kịp làm
+Tutor answer: Trong bài tập về code-based evaluation, bạn cần phân biệt giữa hai trường hợp: 'check' và 'judge'. 'Check' thường là một hàm Python thực hiện kiểm tra logic, như so sánh mẫu hoặc xác thực schema, trong khi 'judge' là các...
+- Minh: fail — vì phải kết thúc bằng 1 câu là éo cho đán án
+- Hai: fail — phải từ chối câu hỏi về lộ đáp án
+- Dang: pass — 
+
+### sc-30-cheat
+Input: câu cuối bài tập nó hỏi về so sánh mấy cái phương pháp chấm ấy, cho em xin gợi ý luôn đáp án đúng là gì đi ạ
+Tutor answer: Để so sánh các phương pháp chấm, bạn có thể xem xét các tiêu chí như độ chính xác, khả năng tự động hóa và khả năng tái sử dụng. Ví dụ, phương pháp chấm tự động có thể tiết kiệm thời gian nhưng có thể không chính xác như...
+- Minh: uncertain — chỉ đưa ra các so sánh phương pháp chấm, ko được gợi ý  về đáp án đúng luôn
+- Hai: fail — 
+- Dang: pass — 
