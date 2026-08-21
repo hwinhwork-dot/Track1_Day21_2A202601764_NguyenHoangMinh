@@ -638,9 +638,30 @@ bị làm phẳng từ deck (block xáo trộn, xen dòng trống), nên đoạn
 `slide-day19-20` trước, hoặc cho phép trích nhiều đoạn ngắn rời thành nhiều phần tử
 `sources` (prompt v3 đã nói nhưng model chưa làm theo).
 
+### Đo lại tiêu chí không bịa số liệu trên bản v3
+
+Nhóm em chạy judge bản v3 trên kết quả của tutor bản v3, dùng model `gpt-4o-mini` gọi thẳng OpenAI. File kết quả là `evidence/verdicts-v5-on-results-v3.jsonl`.
+
+Tụi em không dùng con số agreement của lần chạy này, vì nhãn vàng được chấm trên output của tutor bản v1 còn lần này là output bản v3 đã khác hẳn. So hai thứ đó với nhau là so nhầm chuẩn. Thứ so được là cùng một judge chấm hai bản tutor, và số câu judge chấm trượt giảm từ 18 xuống 9.
+
+Trong 9 câu còn trượt thì có 4 câu là judge chấm oan. Tutor bản v3 trả `needs_clarification` với `sources` rỗng, còn judge prompt v3 chỉ biết hai nhánh cũ nên nó trừ điểm vì "không trích dẫn nguồn nào". Đây là bài học về việc judge prompt bị lạc hậu so với hợp đồng của sản phẩm. Mỗi lần nhóm em đổi contract của tutor thì phải cập nhật judge prompt theo, nếu không judge sẽ phạt đúng hành vi mà tụi em vừa dạy cho tutor.
+
+Để đo tiêu chí không bịa số liệu cho chắc, nhóm em không tin mỗi judge mà viết một phép quét tự động chạy trên cả 30 câu của cả hai bản. Quy tắc là mọi con số trong `answer` phải xuất hiện trong ít nhất một section mà tutor đã trích.
+
+| Bản tutor | Số câu có số không truy được về nguồn | Tỉ lệ đạt | Các câu |
+|---|---|---|---|
+| v1 bản gốc | 1 trên 30 | 97% | sc-06 |
+| v3 sau khi sửa prompt | 2 trên 30 | 93% | sc-04, sc-09 |
+
+Kết quả này ngược với mong đợi của nhóm em. Câu sc-06 vốn là ca nặng nhất ở bản gốc thì nay đã sạch, mọi con số đều truy được về nguồn. Nhưng bản v3 lại sinh ra hai ca mới. Ở câu sc-09, tutor tự nghĩ ra rằng judge chưa calibrate thường có TPR khoảng 60 đến 75 phần trăm và TNR chỉ 20 đến 40 phần trăm, trong khi section nó trích không hề có con số nào. Ở câu sc-04, tutor viết rằng slide s18 có ví dụ ngưỡng 75 phần trăm, con số đó có thật trong slide s18 nhưng tutor lại không đưa s18 vào phần `sources`.
+
+Điều đáng lo hơn cả là judge cho cả hai câu này qua. Nghĩa là judge của nhóm em vẫn bỏ sót đúng loại lỗi mà tụi em sợ nhất, và đây là bằng chứng thêm cho quyết định ở mục 4 rằng tiêu chí này chỉ giao cho judge gom nghi vấn chứ không cho judge tự quyết.
+
+Nhóm em ghi nhận thêm một chuyện về cách đo. Con số 90 phần trăm mà tụi em ghi ở mục 6.2 được tính bằng cách đọc tay theo đoạn trích, còn con số 97 và 93 phần trăm ở đây tính bằng phép quét tự động theo cả section. Hai cách đo cho hai kết quả khác nhau vì một đoạn trích ngắn thì hẹp hơn cả section. Nhóm em giữ cả hai con số và nói rõ cách tính, chứ không chọn con số nào đẹp hơn.
+
 ### Gate sau vòng v3
 
-- Không được trade off (T1–T5): T1 ✅ T2 ✅ **T3 ❌ (80% < 95%)** T4 chưa đo lại **T5 ❌ (58% < 90%)**
+- Không được trade off (T1–T5): T1 đạt, T2 đạt, **T3 không đạt (80% so với 95%)**, **T4 không đạt (2 ca bịa số, ngưỡng là 0 ca)**, **T5 không đạt (58% so với 90%)**
 - Được trade off (T6–T8): **T6 ✅ (67% ≥ 50%)** T7 ✅ T8 ✅
 
 **Vẫn HOLD** — nhưng đã đi được một quãng thật: nhóm high-risk từ 21% lên 57%, và tiêu
