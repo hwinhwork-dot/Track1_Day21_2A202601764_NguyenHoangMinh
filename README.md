@@ -1,28 +1,55 @@
 # Track 1 Day 21 — Bài nộp capstone AI Evaluation
 
-## Người nộp và nhóm
+## Thông tin nhóm
 
-Em là Nguyễn Hoàng Minh, mã học viên 2A202601764. Nhóm em có ba người là Nguyễn Hoàng Minh, Nguyễn Việt Hải và Trịnh Hải Đăng.
+| Họ và tên | Mã học viên | Phụ trách chính |
+|---|---|---|
+| Nguyễn Hoàng Minh | 2A202601764 | Gate 1 thiết kế coverage, Gate 2 human baseline, Gate 3 rubric và routing |
+| Nguyễn Việt Hải | 2A202601656 | Gate 4 code checks và calibrate LLM judge |
+| Trịnh Hải Đăng | 2A202601602 | Gate 5 đọc kết quả theo slice và chốt threshold |
+| Cả ba thành viên | | Gate 6 brainstorm và chốt verdict cuối cùng |
+
+Người nộp repo này là Nguyễn Hoàng Minh, mã học viên 2A202601764.
+
+## Sáu phase và artifact của từng phase
+
+| Phase | Nhóm em làm gì | Artifact nộp kèm |
+|---|---|---|
+| 1. Thiết kế coverage | Nhóm em chọn ba trục cho lưới câu hỏi rồi sinh 30 câu phủ 25 ô | `deliverables/evidence/dataset-v1.jsonl`, mục 1 và 2 của REPORT.md |
+| 2. Human baseline | Ba thành viên chấm độc lập 30 câu rồi ngồi lại chốt nhãn vàng | `labels-NguyenHoangMinh.csv`, `labels-NguyenVietHai.csv`, `labels-TrinhHaiDang.csv`, `labels.csv`, `agreement-v1.md`, `agreement-v1-raw.txt` |
+| 3. Rubric và routing | Nhóm em viết bảy tiêu chí chấm và quyết định tiêu chí nào giao cho code, cho judge hay cho người | Mục 3 và mục 4 của REPORT.md |
+| 4. Scale và calibrate | Nhóm em chạy năm code check và calibrate judge qua bốn vòng | `judge-prompt-v1.md` tới `judge-prompt-v3.md`, `verdicts-v1.jsonl` tới `verdicts-v4-with-sections.jsonl` |
+| 5. Đọc kết quả và đặt ngưỡng | Nhóm em chốt ngưỡng trước rồi mới đọc kết quả theo từng nhóm nhỏ | Mục 6 của REPORT.md, ngưỡng khoá tại commit `288db32` |
+| 6. Verdict | Nhóm em chốt HOLD kèm report một trang | Mục 7 của REPORT.md |
+
+Ngoài sáu phase trên, nhóm em làm thêm một vòng cải thiện. Tụi em sửa system prompt của tutor rồi chạy lại cả 30 câu hai lần nữa, kết quả nằm ở `results-v2-promptv2.jsonl` và `results-v3-promptv3.jsonl`.
 
 ## Bài nộp nằm ở đâu
 
 Báo cáo chính của nhóm em nằm ở [deliverables/REPORT.md](deliverables/REPORT.md), gồm bảy mục theo bảy phase của bài lab. Toàn bộ dữ liệu thô để đối chiếu lại từng con số nằm trong [deliverables/evidence/](deliverables/evidence/). Phần khai báo dùng AI của em nằm ở [deliverables/ai-support-log.md](deliverables/ai-support-log.md). Link trace của mọi lần chạy nằm ở [deliverables/evidence/braintrust-link.md](deliverables/evidence/braintrust-link.md).
 
-## Verdict tóm tắt
+## Verdict của nhóm em và vì sao
 
 Nhóm em quyết định HOLD, tức là chưa cho AI Tutor ra mắt rộng hơn.
 
-Nhóm em chấm 30 câu hỏi phủ 25 ô trong lưới. Ba thành viên chấm độc lập và chỉ đồng thuận với nhau 50 phần trăm, nên tụi em phải siết lại rubric trước khi tin bất cứ con số nào. Judge của nhóm em sau bốn vòng calibration nhận đúng 55 phần trăm số câu tốt và bắt được 89 phần trăm số câu xấu, đủ để hỗ trợ chứ chưa đủ để tự quyết.
+Nhóm em chốt ngưỡng trước khi xem điểm và ghi lại bằng một commit riêng, nên con số đem ra so là tiêu chuẩn chứ không phải thứ tụi em thương lượng lại sau khi thấy kết quả. Ở lần chạy đầu, tutor trượt ba ngưỡng nằm trong nhóm không được phép đánh đổi. Sau khi nhóm em sửa system prompt và chạy lại, tỉ lệ đạt ở nhóm câu rủi ro cao tăng từ 21 phần trăm lên 57 phần trăm, còn nhóm câu mơ hồ tăng từ 0 phần trăm lên 71 phần trăm. Tutor vẫn còn trượt hai ngưỡng là trích đúng nguyên văn chỉ đạt 80 phần trăm so với mức cần 95 phần trăm, và nhận đúng phạm vi câu hỏi chỉ đạt 58 phần trăm so với mức cần 90 phần trăm.
 
-Nhóm em chốt ngưỡng trước khi xem điểm và ghi lại bằng một commit riêng. Ở lần chạy đầu, tutor trượt ba ngưỡng cứng. Sau khi tụi em sửa system prompt và chạy lại, tỉ lệ đạt ở nhóm câu rủi ro cao tăng từ 21 phần trăm lên 57 phần trăm, còn nhóm câu mơ hồ tăng từ 0 phần trăm lên 71 phần trăm. Tutor vẫn còn trượt hai ngưỡng là trích đúng nguyên văn đạt 80 phần trăm so với mức cần 95 phần trăm, và nhận đúng phạm vi câu hỏi đạt 58 phần trăm so với mức cần 90 phần trăm.
-
-Con số làm nhóm em quyết định là tỉ lệ đạt theo từng nhóm nhỏ. Nếu chỉ nhìn nhóm câu phổ biến thì tutor đạt 100 phần trăm và tụi em đã cho ship, nhưng ở nhóm câu rủi ro cao nó chỉ đạt 29 phần trăm ở lần chạy đầu.
+Con số làm nhóm em quyết định là tỉ lệ đạt theo từng nhóm nhỏ. Nếu chỉ nhìn nhóm câu phổ biến thì tutor đạt 100 phần trăm và tụi em đã cho ship, nhưng ở nhóm câu rủi ro cao nó chỉ đạt 29 phần trăm ở lần chạy đầu. Đây là lỗi hại người học nhiều nhất, nên nhóm em không đánh đổi.
 
 ## Đóng góp của em trong nhóm
 
-Em dựng môi trường chạy cho cả nhóm, gồm cấu hình provider, bật tracing lên Braintrust và sửa hai lỗi khiến trace bị mất. Em chấm độc lập 30 câu ở vòng đầu và là người phát hiện cụm lỗi tutor không hỏi lại khi thiếu ngữ cảnh. Em viết và calibrate judge qua bốn vòng, viết thêm hai code check cho nhóm, và sửa rule trích dẫn sau khi thấy nó bắt oan. Em cũng là người sửa system prompt của tutor rồi chạy lại ba vòng để đo xem có khá hơn thật không.
+Em phụ trách ba gate đầu. Ở gate 1, em cùng nhóm chọn ba trục cho lưới câu hỏi và quyết ô nào là rủi ro cao, sau đó em mới nhờ AI viết lại câu cho tự nhiên. Ở gate 2, em chấm độc lập 30 câu và là người phát hiện cụm lỗi tutor không hỏi lại khi thiếu ngữ cảnh, cụm này về sau thành tiêu chí C6 trong rubric. Ở gate 3, em gom các lý do fail thành bảy tiêu chí và đề xuất bảng routing.
 
----
+Ngoài ra em dựng môi trường chạy cho cả nhóm, gồm cấu hình provider, bật tracing lên Braintrust và sửa hai lỗi khiến trace bị mất. Em cũng là người sửa system prompt của tutor ở vòng cải thiện rồi chạy lại ba vòng để đo xem có khá hơn thật không.
+
+## Điều em sẽ mang về áp dụng cho dự án thật
+
+Thứ nhất là thói quen chốt ngưỡng trước khi xem điểm. Trước đây em hay nhìn kết quả rồi mới bàn xem bao nhiêu là đủ, và như vậy thì lần nào cũng tìm được lý do để cho qua.
+
+Thứ hai là thói quen đọc kết quả theo từng nhóm nhỏ chứ không nhìn mỗi con số tổng. Trong bài này, con số tổng 47 phần trăm che mất chuyện tutor đạt 100 phần trăm ở nhóm câu phổ biến nhưng chỉ đạt 29 phần trăm ở nhóm câu nguy hiểm.
+
+Thứ ba là chuyện việc gì code làm được thì đừng giao cho AI. Trong bảy tiêu chí của nhóm em thì bốn tiêu chí code chấm được, chạy đúng gần như tuyệt đối và không tốn đồng nào, trong khi judge tốn tiền mà vẫn báo động nhầm gần một nửa số câu tốt.
+
 
 # K3 Track 1 · Day 20–21 — AI Evaluation (eval-kit)
 

@@ -70,6 +70,14 @@ results-vN.jsonl, labels.csv, judge-prompt-vN.md, verdicts-vN.jsonl, braintrust-
   - Ô `ngoai_bai` chỉ có 2 câu — đủ kiểm hành vi từ chối, thêm nữa sẽ lãng phí budget
   - Các cặp câu a/b (biến thể cùng ý) từ CSV → chỉ giữ 1 câu/ô để tránh trùng
 
+- **Quyết định Keep / Rewrite / Reject với câu do AI sinh**:
+
+  Nhóm em khoá ba trục và 25 ô trước, sau đó mới đưa cho AI viết thành câu tiếng Việt tự nhiên. Vì vậy cả 30 câu trong dataset đều thuộc diện **Rewrite**, tức là ý và ô là của nhóm em còn cách diễn đạt là do AI viết lại rồi nhóm em duyệt.
+
+  Nhóm em **Reject** các câu rơi vào hai trường hợp. Một là các cặp câu a/b từ file CSV cùng nằm một ô và cùng một ý, tụi em chỉ giữ lại một câu cho mỗi ô. Hai là các câu trùng ô giữa hai nguồn CSV và TXT, tụi em giữ câu nào nghe giống giọng học viên thật hơn.
+
+  Nhóm em không có câu nào thuộc diện **Keep** nguyên văn từ AI mà không sửa gì. Tụi em cũng ghi nhận một thiếu sót là nhóm em chỉ lưu lại quy tắc loại câu chứ chưa lưu danh sách từng câu bị loại, nên phần này không đối chiếu ngược lại được. Lần sau tụi em sẽ ghi cả các câu bị Reject vào một file riêng.
+
 - **Top 10 câu nếu chỉ giữ 10** (ưu tiên: phủ nhiều loại × rủi ro cao × khó nhất):
 
 | # | scenario_id | Lý do giữ |
